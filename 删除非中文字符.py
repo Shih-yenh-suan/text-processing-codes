@@ -1,6 +1,12 @@
 import os
 import re
 import shutil
+'''
+输入：输入文件夹、输出文件夹路径
+
+根据正则表达式，去除输入文件夹内所有 .txt 文件中的全部非中文字符，用于文本分析
+'''
+
 
 def remove_non_chinese_characters(input_path, output_path):
     # 创建输出文件夹
@@ -31,12 +37,12 @@ def remove_non_chinese_characters(input_path, output_path):
 
 
 def main():
-    
+
     # 输入文件夹路径和词典路径
-    input_folder = input("请输入文本文件夹：") # D:\ZZZMydocument\AAA_Books\C社会科学总论\年报数据\社会责任报告txt
-    output_folder = input("请输入输出文本文件夹：") # D:\ZZZMydocument\AAA_Books\C社会科学总论\年报数据\新建文本文档
+    input_folder = input("请输入文本文件夹：")
+    output_folder = input("请输入输出文本文件夹：")
     remove_non_chinese_characters(input_folder, output_folder)
-    
+
+
 if __name__ == '__main__':
     main()
-    

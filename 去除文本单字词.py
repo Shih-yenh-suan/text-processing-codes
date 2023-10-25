@@ -40,7 +40,14 @@ def remove_single_char_words(input_folder, output_folder):
 
 
 # 示例用法
-input_folder = "D:\ZZZMydocument\Codes\LDA主题模型\csrReport3_jiebaDevide"
-output_folder = "D:\ZZZMydocument\Codes\LDA主题模型\csrReport4_removeSingleWord"
 
-remove_single_char_words(input_folder, output_folder)
+def main():
+
+    # 输入文件夹路径和词典路径
+    input_folder = input("请输入文本文件夹：")
+    output_folder = input("请输入输出文本文件夹：")
+    remove_single_char_words(input_folder, output_folder)
+
+
+if __name__ == '__main__':
+    main()

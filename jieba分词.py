@@ -1,5 +1,13 @@
 import os
 import jieba
+'''
+输入：文本文件夹、输出文本文件夹、自定义词典
+
+使用 jieba 模块，对文本文件夹中所有 .txt 文本进行分词
+
+将分词后的文本存入输出文本文件夹。
+'''
+
 
 def segment_files(folder_path_A, folder_path_B, custom_dict_path=None):
     # 检查文件夹B是否存在，如果不存在则创建
@@ -31,13 +39,14 @@ def segment_files(folder_path_A, folder_path_B, custom_dict_path=None):
 
     print("所有文件分词完成")
 
+
 def main():
-    
-    input_folder = input("请输入文本文件夹：") # D:\ZZZMydocument\Codes\LDA主题模型\csrReport1.1_removeSpecialChar
-    output_folder = input("请输入输出文本文件夹：") # D:\ZZZMydocument\Codes\LDA主题模型\csrReport1.2_cht2chs
+
+    input_folder = input("请输入文本文件夹：")
+    output_folder = input("请输入输出文本文件夹：")
     custom_dict_path = input("输入自定义词典路径（可选，没有直接按enter）")
     segment_files(input_folder, output_folder, custom_dict_path)
-    
+
+
 if __name__ == '__main__':
     main()
-    

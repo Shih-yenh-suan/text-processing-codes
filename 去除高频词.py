@@ -1,10 +1,21 @@
 import os
 from concurrent.futures import ThreadPoolExecutor
+'''
+输入：输入文件夹路径、输出文件夹路径、词典
+
+删除输入文件夹路径中所有 .txt 文件中出现在词典中的词。
+保存到输出文件夹路径下
+
+此步骤需在分词之后进行
+
+'''
+
 
 class TrieNode:
     def __init__(self):
         self.children = {}
         self.is_word = False
+
 
 class Trie:
     def __init__(self):
@@ -25,6 +36,7 @@ class Trie:
                 return False
             node = node.children[char]
         return node.is_word
+
 
 def remove_words_in_file(file_path, output_path, trie):
     # 读取文件内容
@@ -48,6 +60,7 @@ def remove_words_in_file(file_path, output_path, trie):
 
     print(f"文件 {filename} 处理完成")
 
+
 def remove_words_in_files(folder_path, output_path, words_file):
     # 读取词汇文件
     content_list = []
@@ -67,13 +80,15 @@ def remove_words_in_files(folder_path, output_path, words_file):
         for filename in os.listdir(folder_path):
             file_path = os.path.join(folder_path, filename)
             if os.path.isfile(file_path) and filename.endswith('.txt'):
-                executor.submit(remove_words_in_file, file_path, output_path, trie)
+                executor.submit(remove_words_in_file,
+                                file_path, output_path, trie)
 
     print("所有文件处理完成")
 
+
 # 示例用法
-folder_path = "D:\ZZZMydocument\Codes\LDA主题模型\csrReport4_removeSingleWord"
-output_path = "D:\ZZZMydocument\Codes\LDA主题模型\csrReport5.1_removeMostCommonWord"
-words_files = ["D:\ZZZMydocument\Codes\LDA主题模型\csrReport5.1_removeMostCommonWord.txt",
-               "D:\ZZZMydocument\Codes\LDA主题模型\csrReport5.2_dictionary.txt"]
+folder_path = input("")
+output_path = input("")
+words_files = ["",
+               ""]  # 可输入多个词典路径
 remove_words_in_files(folder_path, output_path, words_files)

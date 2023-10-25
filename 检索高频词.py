@@ -2,6 +2,18 @@ import os
 import re
 import pandas as pd
 from collections import defaultdict
+'''
+输入：输入文件夹、输出txt文件
+
+对于每个输入文件夹中的 .txt 文件，统计：
+1. 全部行中出现的词
+2. 出现频率最高的前 0.1% 的词
+3. 仅在全部样本中出现一次的词。
+
+将这些词输出到输出txt文件词典中。
+
+'''
+
 
 def process_table(folder_path_A):
     # 获取文件夹A中的所有txt文件
@@ -30,7 +42,7 @@ def process_table(folder_path_A):
     word_counts = defaultdict(int)
     all_words = []
     lines = re.split(r'\n', "\n".join(content_list))
-    
+
     for line in lines:
         words = line.split()
         all_words.extend(words)
@@ -39,26 +51,34 @@ def process_table(folder_path_A):
                 word_counts[word] += 1
 
     # 计算全部行中出现的词
-    common_words = [word for word, count in word_counts.items() if count >= total_files * 1]  
-    
+    common_words = [word for word, count in word_counts.items()
+                    if count >= total_files * 1]
+
     # 计算出现频率最高的前0.1%的词
     total_words = len(all_words)
     number_words = defaultdict(int)
     for word in all_words:
         number_words[word] += 1
-    frequency_dict = {word: count/total_words for word, count in number_words.items()}
-    sorted_dict = sorted(frequency_dict.items(), key=lambda x: x[1], reverse=True)
-    top_words = [word for word, count in sorted_dict[:int(len(sorted_dict) * 0.001)]]
+    frequency_dict = {word: count/total_words for word,
+                      count in number_words.items()}
+    sorted_dict = sorted(frequency_dict.items(),
+                         key=lambda x: x[1], reverse=True)
+    top_words = [word for word,
+                 count in sorted_dict[:int(len(sorted_dict) * 0.001)]]
 
     # 计算仅在全部样本中出现过一次的单词
-    unique_words_once = [word for word, count in number_words.items() if count == 1]
+    unique_words_once = [word for word,
+                         count in number_words.items() if count == 1]
 
     # 去重并写入txt文档
     unique_words = list(set(common_words + unique_words_once + top_words))
     with open(output_file, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(unique_words))    
+        f.write('\n'.join(unique_words))
 
-folder_path_A = "D:\ZZZMydocument\Codes\LDA主题模型\csrReport4_removeSingleWord"
-output_file = 'D:\ZZZMydocument\Codes\LDA主题模型\csrReport5.1_removeMostCommonWord.txt'
 
-process_table(folder_path_A)
+if __name__ == '__main__':
+
+    folder_path_A = input("")
+    output_file = input("")
+
+    process_table(folder_path_A)

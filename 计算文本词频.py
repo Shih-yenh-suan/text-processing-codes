@@ -1,6 +1,14 @@
 import os
 import re
 import pandas as pd
+'''
+输入：文本文件夹、关键词文本
+
+统计文本文件夹中各个 .txt 文本的词频
+
+输出到 excel 表格
+
+'''
 
 
 def countWordFrequency(folder_path, dict_path):

@@ -3,6 +3,18 @@ import re
 import shutil
 import threading
 from pypinyin import lazy_pinyin
+'''
+输入：文本文件夹、输出文本文件夹、关键词词典
+
+对于文本文件夹中所有的 .txt 文件，仅保留中文、英文、数字、重要标点
+按照重要标点分行
+
+保留包含关键词的行
+
+保存并输出
+
+'''
+
 
 def read_keywords(keyword_path):
     """
@@ -12,6 +24,7 @@ def read_keywords(keyword_path):
         keywords = file.read().strip().split('、')
         keywords = sorted(keywords, key=lambda x: "".join(lazy_pinyin(x)))
     return keywords
+
 
 def remove_non_characters(input_path, output_path):
     # 创建输出文件夹
@@ -30,7 +43,8 @@ def remove_non_characters(input_path, output_path):
                 content = input_file.read()
 
                 # 去除中文、英文、数字、重要标点之外的，重要标点都分行
-                useful_char = re.sub(r"[^a-zA-Z\u4e00-\u9fa5\d!！.。?？……(..)]+", "", content)
+                useful_char = re.sub(
+                    r"[^a-zA-Z\u4e00-\u9fa5\d!！.。?？……(..)]+", "", content)
                 useful_char = re.sub(r"[!！.。?？……(..)]+", "\n", useful_char)
 
                 # 创建输出文件并写入处理后的内容
@@ -40,6 +54,7 @@ def remove_non_characters(input_path, output_path):
             print(f"处理完成: {file_name}")
 
     print("所有文件处理完成！")
+
 
 def keep_keyword_sentence(input_path, output_path, keywords_path):
     # 读取关键词
@@ -64,6 +79,7 @@ def keep_keyword_sentence(input_path, output_path, keywords_path):
             with open(output_file_path, 'w', encoding='utf-8') as outfile:
                 outfile.write('\n'.join(sentences_to_keep))
 
+
 def process_files(input_folder, output_folder, keywords_path):
     # Remove non-characters
     remove_non_characters(input_folder, output_folder)
@@ -71,17 +87,20 @@ def process_files(input_folder, output_folder, keywords_path):
     # Keep keyword sentences
     keep_keyword_sentence(output_folder, output_folder, keywords_path)
 
+
 def main():
-    input_folder = "D:\ZZZMydocument\AAA_Books\C社会科学总论\年报数据\社会责任报告txt"
-    output_folder = "D:\ZZZMydocument\Codes\出售-csr报告环境部分\输出"
-    keywords_path = "D:\ZZZMydocument\Codes\出售-csr报告环境部分\环境术语.txt"
+    input_folder = input("")
+    output_folder = input("")
+    keywords_path = input("")  # 关键词词典
 
     # Create a list of threads
     threads = []
 
     # Create two threads to process the files concurrently
-    thread1 = threading.Thread(target=process_files, args=(input_folder, output_folder, keywords_path))
-    thread2 = threading.Thread(target=process_files, args=(input_folder, output_folder, keywords_path))
+    thread1 = threading.Thread(target=process_files, args=(
+        input_folder, output_folder, keywords_path))
+    thread2 = threading.Thread(target=process_files, args=(
+        input_folder, output_folder, keywords_path))
 
     # Add threads to the list
     threads.append(thread1)
@@ -94,6 +113,7 @@ def main():
     # Wait for both threads to finish
     thread1.join()
     thread2.join()
+
 
 if __name__ == '__main__':
     main()

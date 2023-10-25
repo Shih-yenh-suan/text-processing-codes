@@ -1,6 +1,15 @@
 import os
 import opencc
 from langdetect import detect, lang_detect_exception
+'''
+输入：输入文件夹、输出文件夹路径
+
+使用 langdetect 模块，检查输入文件夹中所有 .txt 的文本语言
+
+对于繁体文件，将其转换为简体，用于文本分析
+
+'''
+
 
 def convert_files(input_folder, output_folder):
     # 创建输出文件夹
@@ -44,16 +53,17 @@ def convert_files(input_folder, output_folder):
                 # 创建输出文件并写入转换后的内容
                 with open(output_path, 'w', encoding='utf-8') as output_file:
                     output_file.write(converted_content)
-                 
+
     print('所有文件转换完成！')
 
+
 def main():
-    
+
     # 输入文件夹路径和词典路径
-    input_folder = input("请输入文本文件夹：") # D:\ZZZMydocument\Codes\LDA主题模型\csrReport1.1_removeSpecialChar
-    output_folder = input("请输入输出文本文件夹：") # D:\ZZZMydocument\Codes\LDA主题模型\csrReport1.2_cht2chs
+    input_folder = input("请输入文本文件夹：")
+    output_folder = input("请输入输出文本文件夹：")
     convert_files(input_folder, output_folder)
-    
+
+
 if __name__ == '__main__':
     main()
-    
