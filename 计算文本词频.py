@@ -10,6 +10,8 @@ from pathlib import Path
 
 输出到 excel 表格
 
+待办：这是面向纯文本的计算代码，应当在分词后进行
+
 '''
 
 
