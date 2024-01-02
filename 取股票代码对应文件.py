@@ -16,12 +16,13 @@ def copy_stock_files(folder_path, stock_file, destination_folder):
     # 遍历指定文件夹及其子文件夹
     for root, dirs, files in os.walk(folder_path):
         for file in files:
-            # 检查文件名的前6个字符是否在股票代码中
-            if file[:6] in stock_codes:
-                full_file_path = os.path.join(root, file)
-                shutil.copy(full_file_path, destination_folder)
-                print(f"Copied: {file}")
-                found_codes.add(file[:6])
+            # 检查文件名的前缀是否在任何一个股票代码中
+            for code in stock_codes.copy():
+                if file.startswith(code):
+                    full_file_path = os.path.join(root, file)
+                    shutil.copy(full_file_path, destination_folder)
+                    print(f"Copied: {file}")
+                    found_codes.add(code)
 
     # 检查未找到的股票代码
     not_found_codes = stock_codes - found_codes
@@ -34,8 +35,8 @@ def copy_stock_files(folder_path, stock_file, destination_folder):
 
 
 # 使用示例
-folder_path = r'E:\Source_for_sale\三板年报【70838】'  # 这里替换成你的文件夹路径
-stock_file = r'E:\Downloads\新建文本文档.txt'  # 这里替换成你的股票代码文件路径
-destination_folder = r'E:\Downloads\下载2\要求'  # 这里替换成你想复制文件到的目标文件夹路径
+folder_path = r'E:\Source_for_sale\A股年报【56105】'  # 这里替换成你的文件夹路径
+stock_file = r"E:\Downloads\新建文本文档.txt"  # 这里替换成你的股票代码文件路径
+destination_folder = r'E:\Downloads\下载2\出售'  # 这里替换成你想复制文件到的目标文件夹路径
 
 copy_stock_files(folder_path, stock_file, destination_folder)
