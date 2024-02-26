@@ -35,8 +35,8 @@ def copy_stock_files(folder_path, stock_file, destination_folder):
 
 
 # 使用示例
-folder_path = r'E:\Source_for_sale\A股年报【56105】'  # 这里替换成你的文件夹路径
-stock_file = r"E:\Downloads\新建文本文档.txt"  # 这里替换成你的股票代码文件路径
-destination_folder = r'E:\Downloads\下载2\出售'  # 这里替换成你想复制文件到的目标文件夹路径
+folder_path = r""  # 这里替换成你的文件夹路径
+stock_file = r""  # 这里替换成你的股票代码文件路径
+destination_folder = r""  # 这里替换成你想复制文件到的目标文件夹路径
 
 copy_stock_files(folder_path, stock_file, destination_folder)
